@@ -35,6 +35,9 @@ function sleep(delay) {
 
 // 更新uid配置
 function update_uid_config() {
+    uids = [];
+    room_ids = [];
+    usernames = [];
     var uid_input = document.getElementById("uid_input").value;
     uids = uid_input.split(" ");
     log(uids);
@@ -223,12 +226,12 @@ function normal_run() {
 function stop_run() {
     clearInterval(live_status_interval);
     var audio = document.getElementById('audio_id');
-    audio.stop();
+    audio.pause();
     log("已停止运行", "success");
 }
 
 document.addEventListener('deviceready', function () {
-    document.getElementById("uid_input").value = "3709626 1944648347";
+    document.getElementById("uid_input").value = "3709626";
     document.getElementById("loop_interval").value = "5";
 
     // 功能按钮
