@@ -24,19 +24,23 @@ body {
     -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
     -webkit-user-select: text; /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color: #E4E4E4;
     font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size: 16px;
     height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
+    background:url(../img/default_bg.jpg) no-repeat;
+    background-size: cover;
 }
 
 .div_tr {
-    height: 40px;
     font-size: 24px;
     margin: 10px;
+}
+
+input#loop_interval {
+    width: 40%;
 }
 
 /* input框通用样式 */
@@ -68,7 +72,24 @@ div#div_audio {
     margin: 20px;
 }
 
+#set_div {
+    display: none;
+}
+
 #output {
     margin: 10px;
     font-size: 16px;
+}
+
+#footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: whitesmoke;
+}
+
+div#footer div {
+    width: 49%;
+    display: inline-block;
+    text-align: center;
 }
