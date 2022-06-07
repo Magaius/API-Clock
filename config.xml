@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.cordova.hellocordova" version="2.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>API闹钟</name>
     <description>
-        基于Cordova开发，debug
+        本项目基于Cordova开发，打包的apk支持Android9+，主要功能为 监听b站用户直播情况，开播进行闹钟提示
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        Ikaros
     </author>
     <content src="index.html" />
     <access origin="*" />

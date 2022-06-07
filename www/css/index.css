@@ -30,8 +30,15 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    background:url(../img/default_bg.jpg) no-repeat;
+    background:url(../img/white.png) no-repeat;
     background-size: cover;
+}
+
+#main_div {
+    height: 80%;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .div_tr {
@@ -39,8 +46,24 @@ body {
     margin: 10px;
 }
 
+input#uid_input {
+    width: 70%;
+}
+
 input#loop_interval {
     width: 40%;
+}
+
+button#run_btn {
+    background-color: #009688;
+}
+
+button#stop_btn {
+    background-color: #FF5722;
+}
+
+audio#audio_id {
+    width: 95%;
 }
 
 /* input框通用样式 */
@@ -50,7 +73,7 @@ input#loop_interval {
     font-size: 16px;
     margin: 5px;
     border-radius: 3px;
-    border: none;
+    border: 1px solid #dcdcdc;
 }
 
 /* 类似按钮 */
@@ -72,13 +95,23 @@ div#div_audio {
     margin: 20px;
 }
 
+div#func_div {
+    height: 70%;
+}
+
 #set_div {
     display: none;
+    height: 70%;
 }
 
 #output {
-    margin: 10px;
     font-size: 16px;
+    width: 100%;
+    word-wrap: break-word;
+    position: fixed;
+    height: 30%;
+    overflow: auto;
+    text-shadow: 1px 1px 3px #929292;
 }
 
 #footer {

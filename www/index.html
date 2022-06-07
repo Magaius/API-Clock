@@ -39,49 +39,52 @@
 </head>
 
 <body>
-    <div id="func_div">
-        <div>
-            <form>
-                <div class="div_tr">
-                    <span>音频文件</span>
-                    <input class="commonInput" type="file" id="input_audio" accept="audio/*" onchange="set_audio(this)">
-                </div>
-                <div class="div_tr">
-                    <span>UID</span>
-                    <input class="commonInput" type="text" id="uid_input" placeholder="空格分隔多个UID，例：1354255177">
-                    <button class="commonBtn" type="button" onclick="update_uid_config()">更新UID配置</button>
-                    <button class="commonBtn" type="button" onclick="clear_log()">清空日志</button>
-                </div>
-                <div class="div_tr">
-                    <span>轮循间隔（秒）</span>
-                    <input class="commonInput" type="text" id="loop_interval" placeholder="例：10">
-                </div>
-                <div class="div_tr">
-                    <button class="commonBtn" type="button" onclick="self_start_run()">自启动运行</button>
-                    <button class="commonBtn" type="button" onclick="normal_run()">普通运行</button>
-                </div>
-                <div class="div_tr">
-                    <button class="commonBtn" type="button" onclick="stop_run()">停止运行</button>
-                    <button class="commonBtn" type="button" onclick="auto_clear_log()">每分钟清空日志</button>
-                </div>
-            </form>
+    <div id="main_div">
+        <div id="func_div">
+            <div>
+                <form>
+                    <div class="div_tr">
+                        <span>音频文件</span>
+                        <input class="commonInput" type="file" id="input_audio" accept="audio/*" onchange="set_audio(this)">
+                    </div>
+                    <div class="div_tr">
+                        <span>UID</span>
+                        <input class="commonInput" type="text" id="uid_input" placeholder="空格分隔多个UID，例：3709626 1 2">
+                    </div>
+                    <div class="div_tr">
+                        <span>轮循间隔（秒）</span>
+                        <input class="commonInput" type="text" id="loop_interval" placeholder="例：10">
+                    </div>
+                    <div class="div_tr">
+                        <button class="commonBtn" type="button" onclick="config_init()">配置初始化</button>
+                        <button class="commonBtn" type="button" onclick="save_config()">保存配置</button>
+                        <button class="commonBtn" type="button" onclick="auto_clear_log()">每分钟清空日志</button>
+                        <button class="commonBtn" type="button" onclick="clear_log()">清空日志</button>
+                        <button class="commonBtn" id="stop_btn" type="button" onclick="stop_run()">停止运行</button>
+                        <button class="commonBtn" id="run_btn" type="button" onclick="self_start_run()">自启动运行</button>
+                    </div>
+                </form>
+            </div>
+            <div id="div_audio">
+                <audio id="audio_id" controls loop></audio>
+            </div>
         </div>
-        <div id="div_audio">
-            <audio id="audio_id" controls loop></audio>
+        <div id="set_div">
+            <div class="div_tr">
+                <span>背景设置</span>
+                <input class="commonInput" type="file" id="input_bg" accept="image/*" onchange="set_bg(this)">
+            </div>
+            <div class="div_tr">
+                <button class="commonBtn" type="button" onclick="print_help()">使用说明</button>
+            </div>
         </div>
-    </div>
-    <div id="set_div">
-        <div class="div_tr">
-            <span>背景设置</span>
-            <input class="commonInput" type="file" id="input_bg" accept="image/*" onchange="set_bg(this)">
+        <div id="output">
         </div>
     </div>
     <div id="footer">
         <div id="func_btn"><p>功能</p></div>
         <div id="set_btn"><p>设置</p></div>
     </div>
-    
-    <div id="output" ></div>
 
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
