@@ -51,7 +51,7 @@ input#uid_input {
 }
 
 input#loop_interval {
-    width: 40%;
+    width: 30%;
 }
 
 button#run_btn {
@@ -60,10 +60,6 @@ button#run_btn {
 
 button#stop_btn {
     background-color: #FF5722;
-}
-
-audio#audio_id {
-    width: 95%;
 }
 
 /* input框通用样式 */

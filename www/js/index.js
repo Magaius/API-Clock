@@ -27,6 +27,13 @@ var room_ids = [];
 var usernames = [];
 // 存储直播的状态
 var all_live_status = [];
+// 初始化配置
+var init_config = {
+    "audio_url" : "file/岩崎元是-発芽.mp3",
+    "uids" : ["3709626"],
+    "loop_interval" : 10,
+    "img_url" : "img/default_bg.jpg"
+};
 // 本地配置
 var local_config = {
     "audio_url" : "file/岩崎元是-発芽.mp3",
@@ -382,20 +389,19 @@ document.addEventListener('deviceready', function () {
 // 配置初始化
 function config_init() {
     WriteDataToFile();
-    // var room_ids = [];
-    // var usernames = [];
-    if(local_config["audio_url"].length == 0) document.getElementById("audio_id").src = "file/岩崎元是-発芽.mp3";
-    else document.getElementById("audio_id").src = local_config["audio_url"];
+
+    if(init_config["audio_url"].length == 0) document.getElementById("audio_id").src = "file/岩崎元是-発芽.mp3";
+    else document.getElementById("audio_id").src = init_config["audio_url"];
     var uid_input = "";
-    for(var i = 0; i < local_config["uids"].length; i++) {
-        if(i == (local_config["uids"].length - 1)) uid_input = uid_input + local_config["uids"][i];
-        else uid_input = uid_input + local_config["uids"][i] + " ";
+    for(var i = 0; i < init_config["uids"].length; i++) {
+        if(i == (init_config["uids"].length - 1)) uid_input = uid_input + init_config["uids"][i];
+        else uid_input = uid_input + init_config["uids"][i] + " ";
     }
     document.getElementById("uid_input").value = uid_input;
-    if(local_config["loop_interval"].length == 0) document.getElementById("loop_interval").value = 10;
-    else document.getElementById("loop_interval").value = local_config["loop_interval"]; 
-    if(local_config["img_url"].length == 0) document.body.style.backgroundImage = 'url(img/default_bg.jpg)';
-    else document.body.style.backgroundImage = 'url(' + local_config["img_url"] + ')';
+    if(init_config["loop_interval"].length == 0) document.getElementById("loop_interval").value = 10;
+    else document.getElementById("loop_interval").value = init_config["loop_interval"]; 
+    if(init_config["img_url"].length == 0) document.body.style.backgroundImage = 'url(img/default_bg.jpg)';
+    else document.body.style.backgroundImage = 'url(' + init_config["img_url"] + ')';
 }
 
 // 写入数据到文件
@@ -623,7 +629,7 @@ function set_audio(node) {
     // var file = document.getElementById('file').files[0];
     var url = URL.createObjectURL(node.files[0]);
     log("audio_url:" + url);
-    json["audio_url"] = url;
+    local_config["audio_url"] = url;
     document.getElementById("audio_id").src = url;
 }
 
@@ -631,7 +637,7 @@ function set_audio(node) {
 function set_bg(node) {
     var url = URL.createObjectURL(node.files[0]);
     log("img_url:" + url);
-    json["img_url"] = url;
+    local_config["img_url"] = url;
     document.body.style.backgroundImage = 'url(' + url + ')';
 }
 
