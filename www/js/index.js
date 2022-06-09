@@ -576,6 +576,26 @@ function get_random(n, m) {
     return result;
 }
 
+// 时间戳转 0年月日时分秒毫秒 1年月日时分秒 2时分秒
+function time_change(time, type) {
+    var date = new Date(time)
+    var Y = date.getFullYear() + '-'
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' '
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours())
+    var m = ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
+    var s = ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+    
+    if(type == 0) {
+        commonTime = date.toLocaleString();
+        return commonTime;
+    } else if(type == 1) {
+        return Y + M + D + h + m + s;
+    } else {
+        return h + m + s;
+    }
+}
+
 // 打印日志
 function log(msg, level) {
     level = level || "log";
@@ -586,9 +606,11 @@ function log(msg, level) {
 
     // console.log(msg);
 
+    var date = new Date();
+
     if (level === "status" || level === "error" || level === "success" || level == "warn") {
         var msgDiv = document.createElement("div");
-        msgDiv.textContent = msg;
+        msgDiv.textContent = "[" + time_change(date, 2) + "]" + msg;
 
         if (level === "error") {
             msgDiv.style.color = "red";
@@ -604,7 +626,7 @@ function log(msg, level) {
     }
     else {
         var msgDiv = document.createElement("div");
-        msgDiv.textContent = msg;
+        msgDiv.textContent = "[" + time_change(date, 2) + "]" + msg;
         msgDiv.style.color = "#57606a";
         msgDiv.style.padding = "5px";
         msgDiv.style.borderBottom = "rgb(192,192,192) solid 1px";

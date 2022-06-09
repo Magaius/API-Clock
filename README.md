@@ -1,8 +1,15 @@
-# 前言
+﻿# 前言
 
-本项目基于Cordova开发，打包的apk支持Android9+，主要功能为 监听b站用户直播情况，开播进行闹钟提示
-
+本项目基于Cordova开发，打包的apk支持Android9+，主要功能为 监听b站用户直播情况，开播进行闹钟提示  
+*ps：目前版本还是有蛮多问题的，如有遇到可以及时反馈，我会想办法进行修复。*  
+## 源码下载
+[码云](https://gitee.com/ikaros-521/API-Clock) [GitHub](https://github.com/Ikaros-521/API-Clock)
+## apk下载
+[码云](https://gitee.com/ikaros-521/API-Clock/releases/v2.2.1) [GitHub](https://github.com/Ikaros-521/API-Clock/releases)
 ## 使用介绍
+**重点说明：如果手机有省电策略，请关闭应用的省电策略避免应用被挂**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2ee3b91f076741d68197329b5b1a66a0.png)
+
 
 1、首次安装运行程序时会提示权限获取，如果没有给予相应权限则部分功能无法正常使用。（存储权限用于配置本地化，网络用于API请求）  
 2、运行后，可以进行相应的设置（初次使用可以直接点击“配置初始化”，自动完成默认配置）。  
@@ -22,17 +29,39 @@ ps：由于音频和背景图片都是临时生成的加密url，软件重启后
   
 
 ## 效果图
+![请添加图片描述](https://img-blog.csdnimg.cn/62cc7f8daf7547c491e4b3b92856e7dd.png)
 
 ## 已测机型
+✅ 表示兼容可用  
+⬜️ 表示不完全兼容，核心功能可用  
+|手机型号|兼容性  |
+|--|--|
+| 小米10| ✅ |
+| vivo x23 | ✅ |
+| 华为荣耀P20| ⬜️ |
 
-小米10  
-vivo x23  
-
-
-## 插件安装
+## cordova 插件安装
 
 cordova plugin add cordova-plugin-file  
 cordova plugin add cordova-plugin-media  
 cordova plugin add cordova-plugin-autostart@2.3.0  
 cordova plugin add cordova-plugin-background-mode  
 cordova plugin add cordova-plugin-android-permissions  
+
+# 测试记录
+## 纯前台
+*不考虑亮屏情况，不然就没有意义了。*
+
+## 挂后台
+### 程序运行在 小米的“智能限制”省电策略下
+1、息屏15分钟可正常运行（轮循间隔10s）✅   
+2、挂后台后，开启“1”或“3”个新软件使用，程序持续运行“5分40秒”或“1分30秒”后出现get请求出错问题❌（期间有wifi、流量切换情况），重新进入程序，get请求恢复正常，成功完成开播提醒✅ 。  
+### 关闭省电策略后！！！
+1、挂后台后，开启“4”个新软件使用，1时45分后，开播顺利触发✅ 。  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d249c2f338754cfbabbe6493e4a80b41.png)
+# 更新日志
+
+2022-06-06  更新本地配置文件功能  
+2022-06-07  更新UI；更新图标；新增说明；新增已响铃用户过滤功能；修复音频、背景不能更换bug，发布V2.2.1版本  
+2022-06-08  新增日志时间打印，方便调试  
+2022-06-09  发布V2.2.2版本  
