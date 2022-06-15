@@ -273,7 +273,9 @@ function self_start_run() {
     log("自启动运行中...", "success");
 
     local_config["loop_interval"] = loop_interval;
-    WriteDataToFile();
+    // WriteDataToFile();
+    localStorage.setItem('baseInfo', JSON.stringify(local_config));
+    log("写入当前配置数据");
 }
 
 // 保存配置
@@ -283,7 +285,9 @@ function save_config() {
     var loop_interval = parseInt(document.getElementById("loop_interval").value);
     local_config["loop_interval"] = loop_interval;
 
-    WriteDataToFile();
+    // WriteDataToFile();
+    localStorage.setItem('baseInfo', JSON.stringify(local_config));
+    log("写入当前配置数据");
 }
 
 // 停止运行
@@ -295,45 +299,71 @@ function stop_run() {
 }
 
 document.addEventListener('deviceready', function () {
-    new Promise(function (resolve, reject) {
-        var permissions = cordova.plugins.permissions;
-        var list = [
-                permissions.WRITE_EXTERNAL_STORAGE,
-                permissions.MODIFY_FORMAT_FILESYSTEMS,
-                permissions.MOUNT_UNMOUNT_FILESYSTEMS
-                //可以写多个权限
-            ];
-            permissions.requestPermissions(list, function(status) {
-                    log("获取权限成功！" + status, "success");
-                    resolve(status)
-                }, function () {
-                    log("获取权限失败！" + status, "error");
-                    reject()
-                })
-    }).then(function(status){
-        // if(!status.hasPermission) {
-        //     log("获取权限失败！" + status, "error");
-        // } else {
-        //     log("获取权限成功！" + status, "success");
-        // }
+    // new Promise(function (resolve, reject) {
+    //     var permissions = cordova.plugins.permissions;
+    //     var list = [
+    //             permissions.WRITE_EXTERNAL_STORAGE,
+    //             permissions.MODIFY_FORMAT_FILESYSTEMS,
+    //             permissions.MOUNT_UNMOUNT_FILESYSTEMS
+    //             //可以写多个权限
+    //         ];
+    //         permissions.requestPermissions(list, function(status) {
+    //                 log("获取权限成功！" + status, "success");
+    //                 resolve(status)
+    //             }, function () {
+    //                 log("获取权限失败！" + status, "error");
+    //                 reject()
+    //             })
+    // }).then(function(status){
+    //     // if(!status.hasPermission) {
+    //     //     log("获取权限失败！" + status, "error");
+    //     // } else {
+    //     //     log("获取权限成功！" + status, "success");
+    //     // }
 
-        // log(cordova.file, "log");
-        // log(cordova.file.dataDirectory, "log");
-        // log(cordova.file.cacheDirectory, "log");
+    //     // log(cordova.file, "log");
+    //     // log(cordova.file.dataDirectory, "log");
+    //     // log(cordova.file.cacheDirectory, "log");
 
-        // 打开或创建文件夹,创建文件
-        createAndWriteFile();
+    //     // 打开或创建文件夹,创建文件
+    //     createAndWriteFile();
 
-    }).catch(function () {
-        //获取权限失败！！！
-        log("获取权限失败！", "error");
-    });
+    // }).catch(function () {
+    //     //获取权限失败！！！
+    //     log("获取权限失败！", "error");
+    // });
 
     // 打开或创建文件夹,创建文件
     // createAndWriteFile();
 
     // 读取数据
-    getAndReadFile();
+    // getAndReadFile();
+
+    // 从session读取数据
+    var temp_json_str = localStorage.getItem('baseInfo');
+    if(temp_json_str.length == 0) {
+        log("localStorage无配置数据");
+        localStorage.setItem('baseInfo', JSON.stringify(init_config));
+        log("写入初始配置数据");
+    } else {
+        log("读取本地配置成功！", "success");
+        var json = JSON.parse(temp_json_str);
+        local_config = json;
+        // var room_ids = [];
+        // var usernames = [];
+        if(json["audio_url"].length == 0) document.getElementById("audio_id").src = "file/岩崎元是-発芽.mp3";
+        else document.getElementById("audio_id").src = json["audio_url"];
+        var uid_input = "";
+        for(var i = 0; i < json["uids"].length; i++) {
+            if(i == (json["uids"].length - 1)) uid_input = uid_input + json["uids"][i];
+            else uid_input = uid_input + json["uids"][i] + " ";
+        }
+        document.getElementById("uid_input").value = uid_input;
+        if(json["loop_interval"].length == 0) document.getElementById("loop_interval").value = 10;
+        else document.getElementById("loop_interval").value = json["loop_interval"]; 
+        if(json["img_url"].length == 0) document.body.style.backgroundImage = 'url(img/default_bg.jpg)';
+        else document.body.style.backgroundImage = 'url(' + json["img_url"] + ')';
+    }
 
     // 自启动
     cordova.plugins.autoStart.enable();
@@ -388,7 +418,9 @@ document.addEventListener('deviceready', function () {
 
 // 配置初始化
 function config_init() {
-    WriteDataToFile();
+    // WriteDataToFile();
+    localStorage.setItem('baseInfo', JSON.stringify(local_config));
+    log("写入当前配置数据");
 
     if(init_config["audio_url"].length == 0) document.getElementById("audio_id").src = "file/岩崎元是-発芽.mp3";
     else document.getElementById("audio_id").src = init_config["audio_url"];
@@ -548,7 +580,7 @@ function onErrorReadFile(error) {
 
 // 使用说明
 function print_help() {
-    var str = "1、首次安装运行程序时会提示权限获取，如果没有给予相应权限则部分功能无法正常使用。（存储权限用于配置本地化，网络用于API请求） \
+    var str = "1、首次安装运行程序时会提示权限获取，如果没有给予相应权限则部分功能无法正常使用。（网络用于API请求） \
     2、运行后，可以进行相应的设置（初次使用可以直接点击“配置初始化”，自动完成默认配置）。  \
     功能页：  \
     1）闹钟提醒的音频文件（正常mp3等格式），设置成功后，下方的音频控件会加载音频信息（如果没有加载，可能是文件格式或路径原因，请重新选择文件；另外记得调下音量）；\
