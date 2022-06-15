@@ -52,7 +52,7 @@
                         <input class="commonInput" type="text" id="uid_input" placeholder="空格分隔多个UID，例：3709626 1 2">
                     </div>
                     <div class="div_tr">
-                        <span>轮循间隔（秒）</span>
+                        <span id="hidelogbox">轮循间隔（秒）</span>
                         <input class="commonInput" type="text" id="loop_interval" placeholder="例：10">
                     </div>
                     <div class="div_tr">
@@ -62,6 +62,8 @@
                         <button class="commonBtn" type="button" onclick="clear_log()">清空日志</button>
                         <button class="commonBtn" id="stop_btn" type="button" onclick="stop_run()">停止运行</button>
                         <button class="commonBtn" id="run_btn" type="button" onclick="self_start_run()">自启动运行</button>
+                        <button class="commonBtn" id="savefs" type="button">本地存储</button>
+                        <button class="commonBtn" id="loadfs" type="button">本地存储</button>
                     </div>
                 </form>
             </div>

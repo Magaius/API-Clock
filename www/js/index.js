@@ -57,6 +57,10 @@ function confirmEnding(string, target) {
     }
 }
 
+$("#hidelogbox").on('click',function(){
+    $("#output").toggle()
+})
+
 // 更新uid配置
 function update_uid_config() {
     room_ids = [];
@@ -404,21 +408,39 @@ function config_init() {
     else document.body.style.backgroundImage = 'url(' + init_config["img_url"] + ')';
 }
 
+function savefs(key,value){
+    var curtime = new Date().getTime();//获取当前时间
+    localStorage.setItem(key,JSON.stringify({val:value,time:curtime}));
+}
+
+function loadfs(key){
+    var val = localStorage.getItem(key);//获取存储的元素
+    var dataobj = JSON.parse(val);//解析出json对象
+    log(dataobj, "success");
+}
+
+$("#savefs").on('click',function(){
+    savefs('haha','hehe')
+})
+$("#loadfs").on('click',function(){
+    loadfs('haha')
+})
 // 写入数据到文件
 function WriteDataToFile() {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
         console.log('打开的文件系统: ' + fs.name);
         fs.root.getDirectory('Documents', {create: true}, function (dirEntry) {
             dirEntry.getDirectory('APIClock', {create: true}, function (subDirEntry) {
-                subDirEntry.getFile("baseInfo.json", {create: true, exclusive: false}, function (fileEntry) {
-                    fileEntry.name == 'baseInfo.json';
-                    fileEntry.fullPath == 'Documents/APIClock/baseInfo.json';
-                    log("local_config:" + JSON.stringify(local_config));
-                    //文本内容
-                    var dataObj = new Blob([JSON.stringify(local_config)], {type: 'text/plain'});
-                    //写入文件
-                    writeFile(fileEntry, dataObj);
-                }, onErrorCreateFile);
+                log(subDirEntry)
+                // subDirEntry.getFile("baseInfo.json", {create: true, exclusive: false}, function (fileEntry) {
+                //     fileEntry.name == 'baseInfo.json';
+                //     fileEntry.fullPath == 'Documents/APIClock/baseInfo.json';
+                //     log("local_config:" + JSON.stringify(local_config));
+                //     //文本内容
+                //     var dataObj = new Blob([JSON.stringify(local_config)], {type: 'text/plain'});
+                //     //写入文件
+                //     writeFile(fileEntry, dataObj);
+                // }, onErrorCreateFile);
             }, onErrorGetDir);
         }, onErrorGetDir);
     }, onErrorLoadFs);
@@ -533,7 +555,7 @@ function onErrorLoadFs(error) {
  
 //文件夹创建失败回调
 function onErrorGetDir(error) {
-    log("文件夹创建失败！" + error, "error");
+    log("文件夹创建失败！" + JSON.stringify(error), "error");
 }
  
 //文件创建失败回调
