@@ -1,6 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
+<<<<<<< HEAD
 <widget id="io.cordova.hellocordova" version="2.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>DD闹钟</name>
+=======
+<widget id="io.cordova.hellocordova" version="2.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>API闹钟</name>
+>>>>>>> 0c621e0cc6869b00bb16e2f901369d3d769f8373
     <description>
         本项目基于Cordova开发，打包的apk支持Android9+，主要功能为 监听b站用户直播情况，开播进行闹钟提示
     </description>
