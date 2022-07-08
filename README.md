@@ -47,6 +47,7 @@ cordova plugin add cordova-plugin-media
 cordova plugin add cordova-plugin-autostart@2.3.0  
 cordova plugin add cordova-plugin-background-mode  
 cordova plugin add cordova-plugin-android-permissions  
+cordova plugin add cordova-plugin-local-notification  
 
 # 测试记录
 ## 纯前台
@@ -66,7 +67,8 @@ cordova plugin add cordova-plugin-android-permissions
 2022-06-07  更新UI；更新图标；新增说明；新增已响铃用户过滤功能；修复音频、背景不能更换bug，发布V2.2.1版本  
 2022-06-08  新增日志时间打印，方便调试  
 2022-06-09  发布V2.2.2版本 
-2020-06-15  发布V2.3.0版本；去除本地配置读写换为localStorage 
+2020-06-15  发布V2.3.0版本；去除本地配置读写换为localStorage  
+2022-07-08  新增“消息栏”提示功能，发布V2.3.1版本  
 
 # 特别声明:
 

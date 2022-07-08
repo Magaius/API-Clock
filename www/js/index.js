@@ -227,9 +227,23 @@ function get_live_status(index) {
 
                 // 打开屏幕
                 cordova.plugins.backgroundMode.wakeUp();
-
+                // Turn screen on and show app even locked
+                cordova.plugins.backgroundMode.unlock();
                 // 从后台移动到前台
                 cordova.plugins.backgroundMode.moveToForeground();
+
+                // 通知栏提示
+                cordova.plugins.notification.local.schedule([{
+                    id: 1,
+                    title: 'APIClock',
+                    text: usernames[index] + ' 正在直播中！！！',
+                    icon: '../img/logo.png',
+                    priority: 2,
+                    led: true,
+                    silent: false,
+                    clock: true,
+                    lockscreen: true
+                }]);
             }
 
             return live_status;
@@ -339,6 +353,9 @@ document.addEventListener('deviceready', function () {
     // 读取数据
     // getAndReadFile();
 
+    if(!cordova.plugins.notification.local.hasPermission()) 
+        cordova.plugins.notification.local.requestPermission();
+
     // 从session读取数据
     var temp_json_str = localStorage.getItem('baseInfo');
     if(temp_json_str.length == 0) {
@@ -390,7 +407,7 @@ document.addEventListener('deviceready', function () {
     cordova.plugins.backgroundMode.setDefaults({
         title: "API闹钟通知",
         text: "有人开播啦",
-        icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+        icon: 'ic_launcher', // this will look for icon.png in platforms/android/res/drawable|mipmap
         color: "F14F4D", // hex format like 'F14F4D'
         resume: true,
         hidden: false,
@@ -400,6 +417,8 @@ document.addEventListener('deviceready', function () {
 
     // 后台运行功能启动
     cordova.plugins.backgroundMode.enable();
+    // 覆盖Android上的后退按钮进入后台，而不是关闭应用
+    cordova.plugins.backgroundMode.overrideBackButton();
 
     // 功能按钮
     var func_btn = document.getElementById('func_btn');
